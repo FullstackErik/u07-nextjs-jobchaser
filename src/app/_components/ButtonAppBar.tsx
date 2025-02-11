@@ -11,7 +11,11 @@ import { IconButton } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+
+
+
 export default function ButtonAppBar() {
+
   const pathName = usePathname().slice(1) || "home";
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -29,11 +33,10 @@ export default function ButtonAppBar() {
           <Link href="/"><HomeIcon/></Link>
           </IconButton> : null}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {/* kanske ska vara children? ska visa olika beroende på vilken page man är på */}
             {pathName}
           </Typography>
           {/* fixa så knappen syns när togglad. (kanske löser sig med dark mode) */}
-          <SwitchBtn/>
+          <SwitchBtn handleClick={() => {console.log("byt tema")}}/>
         </Toolbar>
       </AppBar>
     </Box>

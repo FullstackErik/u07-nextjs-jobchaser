@@ -1,8 +1,8 @@
+"use client";
 
 export default function Home() {
+
   return (
-    <>
-      {/* behövs denna? <FluidContainer/> */}
-    </>
+      <h1>hej</h1>
   );
 }

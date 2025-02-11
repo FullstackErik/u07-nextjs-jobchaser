@@ -1,14 +1,17 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Container } from '@mui/material';
 
-export default function FluidContainer() {
+export default function FluidContainer({children}: {children: React.ReactElement}) {
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       {/* box behövs inte? */}
-      {/* <Container maxWidth="xl" disableGutters>
-        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />
-      </Container> */}
-    </React.Fragment>
+      <Container maxWidth="xl" disableGutters>
+      
+          {children}
+       
+      </Container>
+    </>
   );
 }
