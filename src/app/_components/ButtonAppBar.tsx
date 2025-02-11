@@ -11,14 +11,14 @@ import { IconButton } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function ButtonAppBar({children}: {children: string}) {
-  // const pathname = usePathname() || "home";
+export default function ButtonAppBar() {
+  const pathName = usePathname().slice(1) || "home";
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <PositionedMenu/>
-          {children !== "home" ? 
+          {pathName !== "home" ? 
           <IconButton
             size="large"
             edge="start"
@@ -30,7 +30,7 @@ export default function ButtonAppBar({children}: {children: string}) {
           </IconButton> : null}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {/* kanske ska vara children? ska visa olika beroende på vilken page man är på */}
-            {children}
+            {pathName}
           </Typography>
           {/* fixa så knappen syns när togglad. (kanske löser sig med dark mode) */}
           <SwitchBtn/>
