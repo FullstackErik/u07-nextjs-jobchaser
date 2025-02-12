@@ -5,7 +5,7 @@ export default function SwitchBtn ({handleClick}: {handleClick(): void}) {
     return (
         // kanske styla tooltipet?
         <Tooltip title="Toggle theme" placement='left'>
-            <Switch onClick={handleClick}/>
+            <Switch onClick={handleClick} component={"button"}/>
         </Tooltip>
     )
 }

@@ -27,13 +27,21 @@ function JobItem({ logo, company, position, location, level, website }: JobItemP
                 alt={`Logo: ${company}`}
             />
             <CardContent sx={{p: 0}}>
-                <Typography sx={{marginBottom: "10px", marginTop: "5px", textAlign: "center"}} variant='h5' component="p">{company}</Typography>
-                <Divider></Divider>
-                <Typography sx={{m: "5px 0 5px 10px", fontSize: 17}}>{position}</Typography>
-                <Divider></Divider>
-                <Typography sx={{m: "5px 0 5px 10px", fontSize: 16, wordWrap: "break-word"}}>{level}</Typography>
-                <Divider></Divider>
-                <Typography sx={{m: "5px 0 5px 10px", fontSize: 14}}>{location}</Typography>
+                <Typography sx={{marginBottom: "10px", marginTop: "5px", textAlign: "center"}} variant='h5' component="p">
+                    {company}
+                </Typography>
+                <Divider/>
+                <Typography sx={{m: "5px 0 5px 10px", fontSize: 17}}>
+                    {position}
+                </Typography>
+                <Divider/>
+                <Typography sx={{m: "5px 0 5px 10px", fontSize: 16, wordWrap: "break-word"}}>
+                    {level}
+                </Typography>
+                <Divider/>
+                <Typography sx={{m: "5px 0 5px 10px", fontSize: 14}}>
+                    {location}
+                </Typography>
             </CardContent>
             <CardActions sx={{p: 0, marginTop: "auto"}}>
                 <Button onClick={() => window.open(website)}>Learn more</Button>

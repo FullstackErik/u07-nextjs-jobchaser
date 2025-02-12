@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid2";
 import Typography from "@mui/material/Typography";
 import Loader from "../_components/Loader";
 import JobItem from "../_components/JobItem";
-
+import ThemeWrapper from "../_components/ThemeWrapper";
 
 type Job = {
     id: string,
@@ -62,8 +62,7 @@ export default function Jobs() {
             occupation?.label?.toLowerCase().includes(search)
         )
     })
-    return (
-        <>
+    return (<>
             <CssBaseline />
             <Container maxWidth="lg" disableGutters sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <SearchBar searchTerm={searchTerm} handleSearchTerm={handleOnChange} />
@@ -85,6 +84,6 @@ export default function Jobs() {
                     </Grid> :
                     <Typography variant="h3" style={{textAlign: "center"}}>Inga jobb att visa</Typography>
             }
-        </>
+            </>
     );
 }

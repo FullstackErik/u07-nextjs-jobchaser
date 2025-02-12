@@ -10,11 +10,12 @@ import HomeIcon from '@mui/icons-material/Home';
 import { IconButton } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import ThemeWrapper from './ThemeWrapper';
+import { useThemeContext } from '@/context/ThemeContext';
 
 
-
-
-export default function ButtonAppBar() {
+export default function Header() {
+  const { toggleMode } = useThemeContext();
 
   const pathName = usePathname().slice(1) || "home";
   return (
@@ -36,7 +37,7 @@ export default function ButtonAppBar() {
             {pathName}
           </Typography>
           {/* fixa så knappen syns när togglad. (kanske löser sig med dark mode) */}
-          <SwitchBtn handleClick={() => {console.log("byt tema")}}/>
+          <SwitchBtn handleClick={toggleMode}/>
         </Toolbar>
       </AppBar>
     </Box>
