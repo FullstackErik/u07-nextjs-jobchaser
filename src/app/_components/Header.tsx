@@ -10,11 +10,11 @@ import HomeIcon from '@mui/icons-material/Home';
 import { IconButton } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useThemeContext } from '@/context/ThemeContext';
+import { useColorScheme } from '@mui/material';
 
 
 export default function Header() {
-  const { toggleMode } = useThemeContext();
+  const { mode, setMode } = useColorScheme();
 
   const pathName = usePathname().slice(1) || "home";
   return (
@@ -35,7 +35,7 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {pathName}
           </Typography>
-          <SwitchBtn handleClick={toggleMode}/>
+          <SwitchBtn handleClick={() => {setMode(mode !== "light" ? "light" : "dark")}}/>
         </Toolbar>
       </AppBar>
     </Box>
