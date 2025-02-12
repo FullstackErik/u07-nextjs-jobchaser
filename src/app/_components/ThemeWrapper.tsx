@@ -6,11 +6,14 @@ export default function ThemeWrapper({ children }: { children: React.ReactNode; 
     const { mode } = useThemeContext();
     const theme = createTheme({
         palette: {
-          mode,
+            mode,
         },
-      });
-  return <ThemeProvider theme={theme}>
-            <CssBaseline/>
+    });
+    return (
+        
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
             {children}
-        </ThemeProvider>;
+        </ThemeProvider>
+    )
 }
