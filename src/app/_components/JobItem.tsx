@@ -19,7 +19,7 @@ type JobItemProps = {
 function JobItem({ logo, company, position, location, level, website }: JobItemProps) {
     return (
         <Grid size={{xs: 12, sm: 6, md: 3}}>
-        <Card sx={{ height: "100%", p: 1}} className='MuiCard-root'>
+        <Card sx={{ height: "100%", p: 1}} elevation={14} className='MuiCard-root'>
             <CardMedia 
                 className='MuiCardMedia-img'
                 component="img" 
