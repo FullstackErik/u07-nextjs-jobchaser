@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Teoretiska frågor
 
-## Getting Started
+Vecka 1.
 
-First, run the development server:
+Allmänt om ramverket React: Hur/Varför uppkom det? Vad är centralt i React?
+React är ett open source ramverk skapat av facebook och skapades för att göra det effektivare att använda stora dynamiska hemsidor där man kan rendera om en liten del av en hemsida om det är något litet som ändas. Centralt i react är komponenter, JSX, reacts virtuella DOM, props och hooks.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Vad är JSX? JSX står för "JavaScript XML" och är en syntax extension till JavaScript som gör det möjligt att skriva kod liknande HTML direkt i en JS fil och är väldigt centralt i React.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Vad är en komponent? Det är en egen fil i ett projekt som har en funktion som returnerar ett JSX-element, oftast med hjälp av props och hooks som te.x useState och useEffect.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Vad är props? Props är som parametrar för en komponent för att göra dom mer återanvändbara, te. x skicka med en "img" prop i en komponent med en bild istället för bildens länk för att kunna återanvända komponentet för andra bilder utan att göra en ny.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Vad menas med one-way-dataflow? Det betyder att man skickar med data (i formen av props) från en förälder till ett child(komponent) för att minska buggar och göra felsökning enklare.
 
-## Learn More
+Hur kan man använda sig av konditionell rendering i React? Man kan välja att rendera olika element/komponenter beroende på vad en viss operator säger eller välja att inte rendera dom alls. Te.x. att man bara renderar händelse-komponenter i en lista om datumen är inom 1 vecka från dagens datum, annars renderas dom inte alls.
 
-To learn more about Next.js, take a look at the following resources:
+Vad menas med en återanvändbar komponent? Att man skapar komponenter med props som gör att de går att återanvända för andra saker, som att te.x. skapa en knapp-komponent men istället för att göra en eventlistener som submittar en form i komponenten så har den en onClick som tar in en prop med "onClickDoThis" så kan man använda knappen till andra saker också genom att ändra propen till det man vill att den ska göra.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Vecka 2.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Vad är state i React? State är en inbyggt hook i React som gör att en enskild komponent kan renderas om utan att rendera om hela hemsidan när staten uppdateras. 
 
-## Deploy on Vercel
+Vad är det för skillnad mellan state och props? State är låst till komponenten den är skapad i medans props skickas med till child-komponenter. Props som skickas in i en komponent kan inte ändras i komponenten utan måste ändras i förälder-komponenten för att ändras i komponenten den skickats till.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Vad menas med en kontrollerad komponent i React? En komponent där värdet ändras via state istället för att tas från DOMen, te.x ett inputfield.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vad är en callback handler? En funktion som skickas som en prop till en komponent och körs vid ett event, te. x onClick eller onSubmit liknande en eventlistener.
+
+Vad menas med "lifting state up"? Att man flyttar upp en state från en child-komponent till förälder-komponentet så att staten kan skickas som props och delas av flera komponenter.
+
+Vad är syftet med useEffect-hook i React? Framförallt för att hantera API-calls men även sideeffects från react som te.x. att hindra en funktion från att köras vid varje rendering istället för bara en gång.
+
+Vad är syftet kring den s.k dependency-arrayen i useEffect? Att välja när/om hooken ska köras igen efter att komponenten har mountats. Te.x vid en tom array körs useEffect enbarts vid mount. 
