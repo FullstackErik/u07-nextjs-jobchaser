@@ -48,8 +48,8 @@ export default function PositionedMenu() {
                 }}
             >
                 <Link href="/jobs"><MenuItem onClick={handleClose}>Jobs</MenuItem></Link>
-                <Link href="/jobs"><MenuItem onClick={handleClose}>Sign up!</MenuItem></Link>
-                <Link href="/jobs"><MenuItem onClick={handleClose}>Log in</MenuItem></Link>
+                <Link href="/sign-up"><MenuItem onClick={handleClose}>Sign up!</MenuItem></Link>
+                <Link href="/sign-in"><MenuItem onClick={handleClose}>Log in</MenuItem></Link>
             </Menu>
         </>
     );

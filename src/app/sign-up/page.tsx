@@ -1,17 +1,16 @@
 "use client";
 
 
-import {Container, FormControl, FormGroup} from '@mui/material';
+import {Container} from '@mui/material';
 import FormLabel from '@mui/material/FormLabel';
 import {Button} from '@mui/material';
-import { TextField } from '@mui/material';
 import { useForm, SubmitHandler } from "react-hook-form"
-import {Input} from '@mui/material';
+import {TextField} from '@mui/material';
 
 type Inputs = {
-    usernameRequired: string,
-    emailRequired: string,
-    passwordRequired: string
+    username: string,
+    email: string,
+    password: string
 }
 
 export default function  SignUp() {
@@ -21,15 +20,12 @@ export default function  SignUp() {
 
     return (
         <>
-            <Container maxWidth="lg" disableGutters sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <FormLabel>Username</FormLabel>
-                    <Input {...register("usernameRequired")} id='userName' type='text'/>
-                    <FormLabel>Email</FormLabel>
-                    <Input {...register("emailRequired")} id='email' type='email'/>
-                    <FormLabel>Password</FormLabel>
-                    <Input {...register("passwordRequired")} id='password' type='password'/>
-                    <Input type='submit'/>
+            <Container maxWidth="lg" disableGutters sx={{ display: "flex",justifyContent: "center", marginTop: 2 }}>
+                <form onSubmit={handleSubmit(onSubmit)} style={{display: "flex", flexDirection: "column"}}>
+                    <TextField {...register("username", { required: true })} label="Username" variant="filled" id='userName' type='text'/>
+                    <TextField {...register("email", { required: true })} label="Email" variant="filled" id='email' type='email'/>
+                    <TextField {...register("password", { required: true })} label="Password" variant="filled" id='password' type='password'/>
+                    <Button sx={{marginTop: 3}} variant='contained' type='submit'>Create account</Button>
                 </form>
             </Container>
         </>
