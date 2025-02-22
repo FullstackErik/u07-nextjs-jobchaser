@@ -3,11 +3,20 @@
 import SearchBar from "../_components/SearchBar";
 import { useState, useEffect } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
-import { Container } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import Grid from "@mui/material/Grid2";
 import Typography from "@mui/material/Typography";
 import Loader from "../_components/Loader";
 import JobItem from "../_components/JobItem";
+import { RootState } from "../redux/store";
+import { UseSelector, useDispatch } from "react-redux";
+import { updatePlace, updatePosition } from "../redux/slices/jobFilterSlice";
+import InputLabel from "@mui/material";
+import MenuItem from "@mui/material";
+import FormControl from "@mui/material";
+import Select from "@mui/material";
+import { SelectChangeEvent } from "@mui/material";
+
 
 type Job = {
     id: string,
@@ -52,7 +61,7 @@ export default function Jobs() {
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value)
     }
-    // console.log(jobs)
+    console.log(jobs)
     const filteredJobs = jobs.filter(({ headline, employer, workplace_address, occupation }) => {
         const search = searchTerm.toLowerCase();
         return (
@@ -68,6 +77,8 @@ export default function Jobs() {
             <Container maxWidth="lg" disableGutters sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <SearchBar searchTerm={searchTerm} handleSearchTerm={handleOnChange} />
             </Container>
+            <Button variant="contained">Place</Button>
+            <Button variant="contained">Position</Button>
             {isLoading ? <Loader /> :
                 filteredJobs.length > 0 ?
                     <Grid container sx={{ m: "0 auto", marginBottom: 10, justifyContent: "center", width: "80vw" }} spacing={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
