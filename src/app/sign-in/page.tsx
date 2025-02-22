@@ -1,11 +1,8 @@
 "use client";
 
-
 import {Container} from '@mui/material';
-import FormLabel from '@mui/material/FormLabel';
 import {Button} from '@mui/material';
 import { useForm, SubmitHandler } from "react-hook-form"
-import {Input} from '@mui/material';
 import {TextField} from '@mui/material';
 
 type Inputs = {
@@ -25,7 +22,7 @@ export default function  SignIn() {
                 <form onSubmit={() => {handleSubmit(onSubmit); }} style={{display: "flex", flexDirection: "column"}}>
                     <TextField {...register("username", { required: true })} variant="filled" label="Username" id='username' type='text'/>
                     <TextField {...register("password", { required: true })} variant='filled' label="Password" id='password' type='password'/>
-                    <Button sx={{marginTop: 3}} variant='contained' type='submit'>Create account</Button>
+                    <Button sx={{marginTop: 3}} variant='contained' type='submit'>Sign in</Button>
                 </form>
             </Container>
         </>
