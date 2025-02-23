@@ -74,7 +74,7 @@ export default function Jobs() {
     return (
         <>
             <CssBaseline />
-            <Container maxWidth="lg" disableGutters sx={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "3%"}}>
+            <Container maxWidth={false} sx={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "3%"}}>
                 <SearchBar searchTerm={searchTerm} handleSearchTerm={handleOnChange} />
                 <div>
                     <FormControl sx={{ m: 1, minWidth: 80 }}>
