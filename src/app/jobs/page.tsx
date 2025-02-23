@@ -3,20 +3,19 @@
 import SearchBar from "../_components/SearchBar";
 import { useState, useEffect } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
-import { Button, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import Grid from "@mui/material/Grid2";
 import Typography from "@mui/material/Typography";
 import Loader from "../_components/Loader";
 import JobItem from "../_components/JobItem";
 import { RootState } from "../redux/store";
-import { UseSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updatePlace, updatePosition } from "../redux/slices/jobFilterSlice";
-import InputLabel from "@mui/material";
-import MenuItem from "@mui/material";
-import FormControl from "@mui/material";
-import Select from "@mui/material";
-import { SelectChangeEvent } from "@mui/material";
-
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { useSelector } from "react-redux";
 
 type Job = {
     id: string,
@@ -33,8 +32,8 @@ export default function Jobs() {
     const [jobs, setJobs] = useState<Job[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
-
-
+    const jobState = useSelector((state: RootState) => state.jobsSelection);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         async function fetchJobs() {
@@ -52,17 +51,22 @@ export default function Jobs() {
                 console.log(error);
             }
         }
-        
+
         fetchJobs();
-        
+
     }, []);
-    
+
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value)
-    }
-    console.log(jobs)
-    const filteredJobs = jobs.filter(({ headline, employer, workplace_address, occupation }) => {
+    };
+    console.log(jobs);
+
+    const reducedJobs = jobs.filter(({ occupation, workplace_address }) => {
+        return workplace_address.municipality.toLowerCase().includes(jobState.place) && occupation.label.toLowerCase().includes(jobState.position)
+    });
+
+    const filteredJobs = reducedJobs.filter(({ headline, employer, workplace_address, occupation }) => {
         const search = searchTerm.toLowerCase();
         return (
             headline?.toLowerCase().includes(search) ||
@@ -77,8 +81,43 @@ export default function Jobs() {
             <Container maxWidth="lg" disableGutters sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <SearchBar searchTerm={searchTerm} handleSearchTerm={handleOnChange} />
             </Container>
-            <Button variant="contained">Place</Button>
-            <Button variant="contained">Position</Button>
+            <div>
+                <FormControl sx={{ m: 1, minWidth: 80 }}>
+                    <InputLabel id="place-label">Plats</InputLabel>
+                    <Select
+                        labelId="place-label"
+                        id="place"
+                        value={jobState.place}
+                        onChange={(e) => dispatch(updatePlace(e.target.value))}
+                        autoWidth
+                        label="Plats"
+                    >
+                        <MenuItem value="">
+                            <em>Alla</em>
+                        </MenuItem>
+                        <MenuItem value="stockholm">Stockholm</MenuItem>
+                        <MenuItem value="norrköping">Norrköping</MenuItem>
+                        <MenuItem value="göteborg">Göteborg</MenuItem>
+                    </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, minWidth: 80 }}>
+                    <InputLabel id="position-label">Yrke</InputLabel>
+                    <Select
+                        labelId="position-label"
+                        id="position"
+                        value={jobState.position}
+                        onChange={(e) => dispatch(updatePosition(e.target.value))}
+                        autoWidth
+                        label="Yrke"
+                    >
+                        <MenuItem value="">
+                            <em>Alla</em>
+                        </MenuItem>
+                        <MenuItem value="mjukvaruutvecklare">Mjukvaruutvecklare</MenuItem>
+                        <MenuItem value="systemutvecklare">Systemutvecklare</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
             {isLoading ? <Loader /> :
                 filteredJobs.length > 0 ?
                     <Grid container sx={{ m: "0 auto", marginBottom: 10, justifyContent: "center", width: "80vw" }} spacing={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
@@ -94,7 +133,7 @@ export default function Jobs() {
                             />
                         )}
                     </Grid> :
-                    <Typography variant="h3" style={{textAlign: "center"}}>Inga jobb att visa</Typography>
+                    <Typography variant="h3" style={{ textAlign: "center" }}>Inga jobb att visa</Typography>
             }
         </>
     );

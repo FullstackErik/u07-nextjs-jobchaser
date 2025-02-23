@@ -4,7 +4,7 @@ import ThemeContextProvider from "@/context/ThemeContext"
 import Header from "./Header"
 
 
-export default function Providers ({children}: {children: React.ReactNode}) { 
+export default function ThemeProviders ({children}: {children: React.ReactNode}) { 
 
     return (
         <ThemeContextProvider>
