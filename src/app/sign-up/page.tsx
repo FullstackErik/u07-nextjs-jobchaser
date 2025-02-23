@@ -11,7 +11,7 @@ type Inputs = {
 
 export default function  SignUp() {
     
-    const { register, handleSubmit, formState: { errors }} = useForm<Inputs>();
+    const { register, handleSubmit} = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
     return (
