@@ -1,6 +1,5 @@
 import Switch from '@mui/material/Switch';
-import { Tooltip } from '@mui/material';
-import { useColorScheme } from '@mui/material';
+import { Tooltip, useColorScheme } from '@mui/material';
 
 export default function SwitchBtn ({handleClick}: {handleClick(): void}) {
     const { mode } = useColorScheme();

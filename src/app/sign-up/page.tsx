@@ -1,9 +1,7 @@
 "use client";
 
-import {Container} from '@mui/material';
-import {Button} from '@mui/material';
+import {Container, TextField, Button } from '@mui/material';
 import { useForm, SubmitHandler } from "react-hook-form"
-import {TextField} from '@mui/material';
 
 type Inputs = {
     username: string,

@@ -1,12 +1,6 @@
 import './JobItem.css'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CardMedia from '@mui/material/CardMedia';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
 import Grid from "@mui/material/Grid2"
+import { Card, CardContent, Typography, CardMedia, CardActions, Button, Divider } from "@mui/material"
 
 type JobItemProps = {
     logo: string,

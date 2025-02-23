@@ -7,10 +7,9 @@ import Typography from '@mui/material/Typography';
 import SwitchBtn from './ThemeToggler';
 import PositionedMenu from './MenuDropDown';
 import HomeIcon from '@mui/icons-material/Home';
-import { IconButton } from '@mui/material';
+import { IconButton, useColorScheme } from '@mui/material';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useColorScheme } from '@mui/material';
 
 
 export default function Header() {

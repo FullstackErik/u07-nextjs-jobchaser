@@ -3,19 +3,14 @@
 import SearchBar from "../_components/SearchBar";
 import { useState, useEffect } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
-import { Container } from '@mui/material';
+import { Container, Typography, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import Grid from "@mui/material/Grid2";
-import Typography from "@mui/material/Typography";
 import Loader from "../_components/Loader";
 import JobItem from "../_components/JobItem";
 import { RootState } from "../redux/store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updatePlace, updatePosition } from "../redux/slices/jobFilterSlice";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { useSelector } from "react-redux";
+
 
 type Job = {
     id: string,
@@ -37,7 +32,7 @@ export default function Jobs() {
 
     useEffect(() => {
         async function fetchJobs() {
-            const url = "https://jobsearch.api.jobtechdev.se/search?q=fullstack&municipalities=0180&limit=20";
+            const url = "https://jobsearch.api.jobtechdev.se/search?q=fullstack&municipalities=0180&limit=50";
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
