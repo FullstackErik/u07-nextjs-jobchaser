@@ -10,7 +10,7 @@ function SearchBar({searchTerm, handleSearchTerm}: SearchBarProps) {
     return (
         
             <TextField
-                sx={{maxWidth: "250px", margin: "5%"}}
+                sx={{maxWidth: "250px"}}
                 label="Sök jobb"
                 type="text"
                 value={searchTerm}

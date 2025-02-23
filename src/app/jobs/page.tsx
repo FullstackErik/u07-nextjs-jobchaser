@@ -73,46 +73,46 @@ export default function Jobs() {
     return (
         <>
             <CssBaseline />
-            <Container maxWidth="lg" disableGutters sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <Container maxWidth="lg" disableGutters sx={{ display: "flex", flexDirection: "column", alignItems: "center", margin: "3%"}}>
                 <SearchBar searchTerm={searchTerm} handleSearchTerm={handleOnChange} />
+                <div>
+                    <FormControl sx={{ m: 1, minWidth: 80 }}>
+                        <InputLabel id="place-label">Plats</InputLabel>
+                        <Select
+                            labelId="place-label"
+                            id="place"
+                            value={jobState.place}
+                            onChange={(e) => dispatch(updatePlace(e.target.value))}
+                            autoWidth
+                            label="Plats"
+                        >
+                            <MenuItem value="">
+                                <em>Alla</em>
+                            </MenuItem>
+                            <MenuItem value="stockholm">Stockholm</MenuItem>
+                            <MenuItem value="norrköping">Norrköping</MenuItem>
+                            <MenuItem value="göteborg">Göteborg</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl sx={{ m: 1, minWidth: 80 }}>
+                        <InputLabel id="position-label">Yrke</InputLabel>
+                        <Select
+                            labelId="position-label"
+                            id="position"
+                            value={jobState.position}
+                            onChange={(e) => dispatch(updatePosition(e.target.value))}
+                            autoWidth
+                            label="Yrke"
+                        >
+                            <MenuItem value="">
+                                <em>Alla</em>
+                            </MenuItem>
+                            <MenuItem value="mjukvaruutvecklare">Mjukvaruutvecklare</MenuItem>
+                            <MenuItem value="systemutvecklare">Systemutvecklare</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
             </Container>
-            <div>
-                <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <InputLabel id="place-label">Plats</InputLabel>
-                    <Select
-                        labelId="place-label"
-                        id="place"
-                        value={jobState.place}
-                        onChange={(e) => dispatch(updatePlace(e.target.value))}
-                        autoWidth
-                        label="Plats"
-                    >
-                        <MenuItem value="">
-                            <em>Alla</em>
-                        </MenuItem>
-                        <MenuItem value="stockholm">Stockholm</MenuItem>
-                        <MenuItem value="norrköping">Norrköping</MenuItem>
-                        <MenuItem value="göteborg">Göteborg</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, minWidth: 80 }}>
-                    <InputLabel id="position-label">Yrke</InputLabel>
-                    <Select
-                        labelId="position-label"
-                        id="position"
-                        value={jobState.position}
-                        onChange={(e) => dispatch(updatePosition(e.target.value))}
-                        autoWidth
-                        label="Yrke"
-                    >
-                        <MenuItem value="">
-                            <em>Alla</em>
-                        </MenuItem>
-                        <MenuItem value="mjukvaruutvecklare">Mjukvaruutvecklare</MenuItem>
-                        <MenuItem value="systemutvecklare">Systemutvecklare</MenuItem>
-                    </Select>
-                </FormControl>
-            </div>
             {isLoading ? <Loader /> :
                 filteredJobs.length > 0 ?
                     <Grid container sx={{ m: "0 auto", marginBottom: 10, justifyContent: "center", width: "80vw" }} spacing={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
