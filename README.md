@@ -91,3 +91,6 @@
 - När man har många eller komplexa states/variabler som man måste hålla koll på i en app.
 - När man börjar få ett större projekt så kan Redux Toolkit hjälpa att hantera all den datan på ett bättre sätt än Reacts egna hooks.
 - När man behöver asynkrona funktioner i reducern då React inte har något stöd utan Redux för att hantera det med enbart "useContext".
+
+  
+https://u07-nextjs-jobchaser.vercel.app/
