@@ -3,7 +3,7 @@
 import SearchBar from "../_components/SearchBar";
 import { useState, useEffect } from "react";
 import CssBaseline from '@mui/material/CssBaseline';
-import { Container, Typography, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
+import { Container, Typography, InputLabel, MenuItem, FormControl, Select, Button } from '@mui/material';
 import Grid from "@mui/material/Grid2";
 import Loader from "../_components/Loader";
 import JobItem from "../_components/JobItem";
@@ -55,7 +55,7 @@ export default function Jobs() {
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value)
     };
-    console.log(jobs);
+    ;
 
     const reducedJobs = jobs.filter(({ occupation, workplace_address }) => {
         return workplace_address.municipality.toLowerCase().includes(jobState.place) && occupation.label.toLowerCase().includes(jobState.position)
@@ -70,6 +70,7 @@ export default function Jobs() {
             occupation?.label?.toLowerCase().includes(search)
         )
     })
+    
     return (
         <>
             <CssBaseline />
@@ -112,6 +113,7 @@ export default function Jobs() {
                         </Select>
                     </FormControl>
                 </div>
+                {(searchTerm || jobState.place || jobState.position) && <Button onClick={()=>{dispatch(updatePlace("")); dispatch(updatePosition("")); setSearchTerm("")}}>Rensa Filter</Button>}
             </Container>
             {isLoading ? <Loader /> :
                 filteredJobs.length > 0 ?
