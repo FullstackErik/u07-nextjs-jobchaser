@@ -58,7 +58,11 @@ export default function Jobs() {
     ;
 
     const reducedJobs = jobs.filter(({ occupation, workplace_address }) => {
-        return workplace_address.municipality.toLowerCase().includes(jobState.place) && occupation.label.toLowerCase().includes(jobState.position)
+        const noPlace = "Location unspecified";
+        const noPosition = "Position unspecified";
+
+        return workplace_address.municipality === null ? noPlace : workplace_address.municipality.toLowerCase().includes(jobState.place) && 
+        occupation.label === null ? noPosition : occupation.label.toLowerCase().includes(jobState.position)
     });
 
     const filteredJobs = reducedJobs.filter(({ headline, employer, workplace_address, occupation }) => {
