@@ -14,12 +14,12 @@ function JobItem({ logo, company, position, location, level, website }: JobItemP
     return (
         <Grid size={{xs: 12, sm: 6, md: 3}}>
         <Card sx={{ height: "100%", p: 1}} elevation={14} className='MuiCard-root'>
-            <CardMedia 
+            {/* <CardMedia 
                 className='MuiCardMedia-img'
                 component="img" 
                 image={logo}
                 alt={`Logo: ${company}`}
-            />
+            /> */}
             <CardContent sx={{p: 0}}>
                 <Typography sx={{marginBottom: "10px", marginTop: "5px", textAlign: "center"}} variant='h5' component="p">
                     {company}

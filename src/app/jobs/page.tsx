@@ -10,6 +10,7 @@ import JobItem from "../_components/JobItem";
 import { RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePlace, updatePosition } from "../redux/slices/jobFilterSlice";
+import { ArrowForwardIos, ArrowBackIosNew } from "@mui/icons-material";
 
 
 type Job = {
@@ -27,12 +28,14 @@ export default function Jobs() {
     const [jobs, setJobs] = useState<Job[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [firstIndex , setFirstIndex] = useState<number>(0);
+    const [secondIndex , setSecondIndex] = useState<number>(20);
     const jobState = useSelector((state: RootState) => state.jobsSelection);
     const dispatch = useDispatch();
 
     useEffect(() => {
         async function fetchJobs() {
-            const url = "https://jobsearch.api.jobtechdev.se/search?q=fullstack&municipalities=0180&limit=50";
+            const url = "https://jobsearch.api.jobtechdev.se/search?q=javascript&limit=100";
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
@@ -54,15 +57,15 @@ export default function Jobs() {
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value)
+        setFirstIndex(0)
+        setSecondIndex(20)
     };
-    ;
-
+    
     const reducedJobs = jobs.filter(({ occupation, workplace_address }) => {
-        const noPlace = "Location unspecified";
-        const noPosition = "Position unspecified";
+        const municipality = workplace_address.municipality ? workplace_address.municipality.toLowerCase() : "";
+        const position = occupation.label ? occupation.label.toLowerCase() : "";
 
-        return workplace_address.municipality === null ? noPlace : workplace_address.municipality.toLowerCase().includes(jobState.place) && 
-        occupation.label === null ? noPosition : occupation.label.toLowerCase().includes(jobState.position)
+        return (municipality.includes(jobState.place.toLowerCase()) && position.includes(jobState.position.toLowerCase()));
     });
 
     const filteredJobs = reducedJobs.filter(({ headline, employer, workplace_address, occupation }) => {
@@ -74,6 +77,28 @@ export default function Jobs() {
             occupation?.label?.toLowerCase().includes(search)
         )
     })
+    
+    const currentPageJobs = [...filteredJobs].slice(firstIndex, secondIndex)
+    let sida;
+    switch (firstIndex) {
+        case 0:
+            sida = 1
+            break;
+        case 20:
+            sida = 2
+            break;
+        case 40:
+            sida = 3
+            break;
+        case 60:
+            sida = 4
+            break;
+        case 80:
+            sida = 5
+            break;
+        default:
+            break;
+    }
     
     return (
         <>
@@ -87,7 +112,12 @@ export default function Jobs() {
                             labelId="place-label"
                             id="place"
                             value={jobState.place}
-                            onChange={(e) => dispatch(updatePlace(e.target.value))}
+                            onChange={(e) => {
+                                dispatch(updatePlace(e.target.value))
+                                setFirstIndex(0)
+                                setSecondIndex(20)
+                            }
+                            }
                             autoWidth
                             label="Plats"
                         >
@@ -105,7 +135,11 @@ export default function Jobs() {
                             labelId="position-label"
                             id="position"
                             value={jobState.position}
-                            onChange={(e) => dispatch(updatePosition(e.target.value))}
+                            onChange={(e) => {
+                                dispatch(updatePosition(e.target.value))
+                                setFirstIndex(0)
+                                setSecondIndex(20)
+                            }}
                             autoWidth
                             label="Yrke"
                         >
@@ -120,9 +154,9 @@ export default function Jobs() {
                 {(searchTerm || jobState.place || jobState.position) && <Button onClick={()=>{dispatch(updatePlace("")); dispatch(updatePosition("")); setSearchTerm("")}}>Rensa Filter</Button>}
             </Container>
             {isLoading ? <Loader /> :
-                filteredJobs.length > 0 ?
+                currentPageJobs.length > 0 ?
                     <Grid container sx={{ m: "0 auto", marginBottom: 10, justifyContent: "center", width: "80vw" }} spacing={{ xs: 1, sm: 2, md: 3, lg: 4 }}>
-                        {filteredJobs.map(({ id, employer, logo_url, headline, workplace_address, occupation, webpage_url }) =>
+                        {currentPageJobs.map(({ id, employer, logo_url, headline, workplace_address, occupation, webpage_url }) =>
                             <JobItem
                                 key={id}
                                 company={employer.name}
@@ -136,6 +170,20 @@ export default function Jobs() {
                     </Grid> :
                     <Typography variant="h3" style={{ textAlign: "center" }}>Inga jobb att visa</Typography>
             }
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "0.5rem", marginBottom: "20px"}}>
+                <Button disabled={firstIndex === 0} variant="contained" onClick={() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                    setFirstIndex(i => i - 20); 
+                    setSecondIndex(i => i - 20);
+                }}><ArrowBackIosNew/></Button>
+                <Typography variant="h6">page {sida} / {Math.ceil(filteredJobs.length / 20)}</Typography>
+                <Button disabled={secondIndex >= filteredJobs.length} variant="contained" onClick={() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                    setFirstIndex(i => i + 20); 
+                    setSecondIndex(i => i + 20);
+                }}
+                ><ArrowForwardIos/></Button>
+            </div>
         </>
     );
 }
