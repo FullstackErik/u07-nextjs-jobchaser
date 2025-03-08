@@ -77,7 +77,6 @@ export default function Jobs() {
             occupation?.label?.toLowerCase().includes(search)
         )
     })
-    
     const currentPageJobs = [...filteredJobs].slice(firstIndex, secondIndex)
     let sida;
     switch (firstIndex) {
@@ -99,7 +98,7 @@ export default function Jobs() {
         default:
             break;
     }
-    
+
     return (
         <>
             <CssBaseline />
