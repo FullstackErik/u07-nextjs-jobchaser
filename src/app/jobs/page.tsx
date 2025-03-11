@@ -30,9 +30,9 @@ export default function Jobs() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [firstIndex , setFirstIndex] = useState<number>(0);
     const [secondIndex , setSecondIndex] = useState<number>(20);
+    const [filteredPlaceArray, setFilteredPlaceArray] = useState<string[]>([]);
     const jobState = useSelector((state: RootState) => state.jobsSelection);
     const dispatch = useDispatch();
-
     useEffect(() => {
         async function fetchJobs() {
             const url = "https://jobsearch.api.jobtechdev.se/search?q=javascript&limit=100";
@@ -43,7 +43,13 @@ export default function Jobs() {
                 }
                 const data = await response.json();
                 setIsLoading(false);
-                setJobs(Array.isArray(data.hits) ? data.hits : []);
+                const jobList: Job[] = Array.isArray(data.hits) ? data.hits : [];
+                setJobs(jobList);
+                const placeArray: string[] = jobList
+                    .map(job => job.workplace_address.municipality)
+                    .filter(location => location)
+                    .sort();
+                setFilteredPlaceArray([...new Set(placeArray)]);
             }
             catch (error) {
                 console.log(error);
@@ -53,7 +59,7 @@ export default function Jobs() {
         fetchJobs();
 
     }, []);
-
+    
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value)
@@ -123,9 +129,7 @@ export default function Jobs() {
                             <MenuItem value="">
                                 <em>Alla</em>
                             </MenuItem>
-                            <MenuItem value="stockholm">Stockholm</MenuItem>
-                            <MenuItem value="norrköping">Norrköping</MenuItem>
-                            <MenuItem value="göteborg">Göteborg</MenuItem>
+                            {filteredPlaceArray.map(place => <MenuItem key={place} value={place.toLowerCase()}>{place}</MenuItem>)}
                         </Select>
                     </FormControl>
                     <FormControl sx={{ m: 1, minWidth: 80 }}>
@@ -169,7 +173,7 @@ export default function Jobs() {
                     </Grid> :
                     <Typography variant="h3" style={{ textAlign: "center" }}>Inga jobb att visa</Typography>
             }
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "0.5rem", marginBottom: "20px"}}>
+            {currentPageJobs.length > 0 && <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: "0.5rem", marginBottom: "20px"}}>
                 <Button disabled={firstIndex === 0} variant="contained" onClick={() => {
                     window.scrollTo({ top: 0, behavior: 'smooth' })
                     setFirstIndex(i => i - 20); 
@@ -182,7 +186,7 @@ export default function Jobs() {
                     setSecondIndex(i => i + 20);
                 }}
                 ><ArrowForwardIos/></Button>
-            </div>
+            </div>}
         </>
     );
 }
